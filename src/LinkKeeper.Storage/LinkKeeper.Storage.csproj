@@ -1,0 +1,1 @@
+<Project Sdk="Microsoft.NET.Sdk"><ItemGroup><PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.13" /><ProjectReference Include="../LinkKeeper.Core/LinkKeeper.Core.csproj" /></ItemGroup><ItemGroup><EmbeddedResource Include="Migrations/*.sql" /></ItemGroup></Project>
