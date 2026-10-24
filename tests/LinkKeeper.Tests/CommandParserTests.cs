@@ -52,6 +52,21 @@ public sealed class CommandParserTests
     public void RejectsInvalidCommandsWithoutPartialResults(string command) =>
         Assert.Throws<ArgumentException>(() => parser.Parse(command));
     [Fact]
+    public void CategoriesWithoutDefaultRequireExplicitDuration()
+    {
+        Assert.Throws<ArgumentException>(() => parser.Parse("https://example.com --video"));
+        Assert.Equal(Now.AddDays(30), parser.Parse("https://example.com --video /30d").ExpiresAt);
+    }
+    [Fact]
+    public void CustomCategoryPoliciesAndAliasesAreConfigurable()
+    {
+        var custom = new CommandParser(new Clock(), new CategoryCatalog([
+            new CategoryRule("pesquisa", 14, Aliases: ["research"])]));
+        var item = custom.Parse("https://example.com --RESEARCH");
+        Assert.Equal("pesquisa", item.Category);
+        Assert.Equal(Now.AddDays(14), item.ExpiresAt);
+    }
+    [Fact]
     public void RejectsOversizedMessages() =>
         Assert.Throws<ArgumentException>(() => parser.Parse(new string('x', 4097)));
 }
