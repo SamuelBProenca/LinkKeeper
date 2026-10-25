@@ -77,6 +77,22 @@ backup/restauração de produção e hospedagem HTTPS com persistência e proces
 Não há demo publicada nem integração WhatsApp. CLI com persistência, idempotência
 de mensagem externa e autenticação de múltiplas contas também continuam pendentes.
 
-As branches históricas serão apresentadas como PRs encadeados, seguidas pelo PR
-da retomada; cada diff deve usar a branch anterior como base. Nenhum merge na
-`main` foi autorizado por esta retomada.
+## Publicação das branches
+
+Branches publicadas por HTTPS usando a credencial existente, com PRs em rascunho:
+
+| PR | Conteúdo | Base |
+| --- | --- | --- |
+| [#2](https://github.com/SamuelBProenca/LinkKeeper/pull/2) | Fundação | main |
+| [#3](https://github.com/SamuelBProenca/LinkKeeper/pull/3) | Domínio/categorias | codex/foundation-command-validation |
+| [#4](https://github.com/SamuelBProenca/LinkKeeper/pull/4) | SQLite | codex/domain-category-policies |
+| [#5](https://github.com/SamuelBProenca/LinkKeeper/pull/5) | Web/worker | codex/sqlite-link-lifecycle |
+| [#6](https://github.com/SamuelBProenca/LinkKeeper/pull/6) | Correções e VS Code | codex/personal-web-demo |
+
+O remoto origin usa HTTPS e a branch local acompanha origin/codex/resume-validation.
+A main permanece em `181dc1f`: nenhum merge foi realizado. Os comandos das tarefas
+de build, testes e smoke foram executados a partir do JSON e passaram.
+
+Na consulta final, Actions estava habilitado, mas a API retornou zero execuções e
+o PR #6 não tinha checks registrados. A validação registrada acima é local;
+aprovação do CI remoto continua pendente.
