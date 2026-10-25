@@ -2,6 +2,16 @@
 
 Organizador pessoal de links em C#/.NET 10, em desenvolvimento.
 
+## Entender o projeto
+
+- [Guia completo em português](docs/GUIA-DO-PROJETO.md): produto, arquitetura,
+  fluxo de cadastro, arquivos, banco, API, segurança, testes e roteiro de leitura.
+- [Mapa visual interativo](docs/mapa-do-projeto.html): abra no navegador e explore
+  os componentes e as etapas de um cadastro. Funciona como arquivo local.
+- [Índice da documentação](docs/README.md): encontre os guias e os registros de cada etapa.
+
+No VS Code, abra o guia e use **Ctrl+Shift+V** para ler a prévia formatada.
+
 ## Estado atual
 
 CLI para validar comandos; versão web local com login, cadastro persistente SQLite,

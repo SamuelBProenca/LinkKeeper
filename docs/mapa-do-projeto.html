@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>LinkKeeper por dentro — mapa do projeto</title>
+<style>
+:root{--paper:#f6f4ee;--ink:#173c36;--muted:#61736b;--line:#ced8ce;--panel:#e9eee4;--accent:#a45c31;--white:#fffefa}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif}a{color:inherit;text-underline-offset:4px}button{font:inherit;color:inherit}button,a{touch-action:manipulation}button:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:4px}header,main,footer{max-width:1160px;margin:auto;padding-left:28px;padding-right:28px}header{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-top:24px;padding-bottom:24px;border-bottom:1px solid var(--line)}.brand{font-weight:800;text-decoration:none;font-size:21px;letter-spacing:-.5px}.brand span{display:inline-grid;place-items:center;background:var(--ink);color:var(--paper);border-radius:9px;width:38px;height:38px;margin-right:10px;font-size:18px}.header-link{font-size:13px}.hero{padding:66px 0 34px;max-width:850px}.eyebrow,.section-number{font:700 11px/1.5 system-ui,sans-serif;letter-spacing:2px;text-transform:uppercase;color:var(--accent)}h1{font:clamp(48px,7vw,82px)/1.03 Georgia,serif;letter-spacing:-3px;margin:18px 0 25px}h2{font:34px/1.2 Georgia,serif;letter-spacing:-.7px;margin:8px 0 12px}h3{margin:0 0 12px;font:28px/1.2 Georgia,serif}.hero p{font-size:19px;max-width:740px;color:var(--muted)}.snapshot{font-size:12px;color:var(--muted)}.stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px 0;margin:14px 0 55px;gap:18px}.stat strong{display:block;font:32px/1.1 Georgia,serif}.stat span{display:block;color:var(--muted);font-size:12px;margin-top:6px}section{margin:0 0 62px}.section-heading{max-width:780px;margin-bottom:24px}.section-heading p{color:var(--muted);margin:0}.architecture{display:grid;grid-template-columns:1.05fr 1fr;gap:22px;align-items:stretch}.modules{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.module{background:var(--white);border:1px solid var(--line);border-radius:13px;text-align:left;padding:21px 19px;min-width:0;cursor:pointer;transition:background .15s,border-color .15s}.module:hover{border-color:var(--ink)}.module[aria-pressed="true"]{background:var(--panel);border:2px solid var(--ink);padding:20px 18px}.module small{display:block;color:var(--muted);font-size:11px;letter-spacing:1.2px;text-transform:uppercase}.module strong{display:block;font-size:21px;margin:6px 0 3px}.module span{display:block;font-size:12px;color:var(--muted)}.module-detail{padding:30px;border-radius:15px;background:var(--ink);color:var(--paper);min-width:0}.module-detail .eyebrow{color:#dca77b}.module-detail p{color:#d5dfd2;margin:14px 0}.module-detail dl{border-top:1px solid #4e6960;margin:24px 0 0;padding-top:16px}.module-detail dt{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#b6c6b8;margin:15px 0 4px}.module-detail dd{margin:0;font-size:14px;overflow-wrap:anywhere}.module-detail a{color:#f6e3cf}.dependency-note{font-size:12px;color:var(--muted);margin-top:16px;padding-left:3px}.command{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 22px;margin-bottom:22px}.command span{display:block;font-size:11px;font-weight:700;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:7px}code{font:13px/1.75 Consolas,"Cascadia Code",monospace;overflow-wrap:anywhere}.command code{font-size:15px}.steps{list-style:none;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));padding:0;gap:9px;margin:0 0 18px}.steps li{min-width:0}.step{width:100%;height:100%;text-align:left;cursor:pointer;border:1px solid var(--line);border-radius:10px;background:transparent;padding:14px 12px;font-size:12px}.step b{display:block;font-size:11px;color:var(--muted);margin-bottom:5px}.step[aria-current="step"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}.step[aria-current="step"] b{color:#dca77b}.flow-detail{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:30px;min-width:0;min-height:280px}.file-label{font:11px/1.6 Consolas,monospace;color:var(--muted);overflow-wrap:anywhere;margin-bottom:15px}.flow-detail p{max-width:880px}.flow-detail pre{margin:20px 0 0;padding:16px 19px;background:var(--panel);border-radius:9px;white-space:pre-wrap;overflow-wrap:anywhere}.controls{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:16px}.controls button{padding:10px 18px;border:1px solid var(--line);border-radius:8px;background:var(--white);cursor:pointer;min-height:44px;font-weight:600;font-size:13px}.controls button:disabled{opacity:.4;cursor:default}.controls output{font:12px Consolas,monospace;color:var(--muted)}.states{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}.state{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:22px;min-width:0}.state h3{font:700 18px system-ui,sans-serif}.state p{font-size:14px;color:var(--muted);margin-bottom:0}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:9px;background:#358262}.expired .dot{background:#b87635}.archived .dot{background:#7e887e}.state-route{padding:15px 0 0;color:var(--muted);font-size:13px}.reading{display:grid;grid-template-columns:1fr 1fr;gap:28px;padding:28px;border:1px solid var(--line);border-radius:14px}.reading p,.reading li{font-size:14px;color:var(--muted)}.reading ol{padding-left:21px}.reading a{font-weight:600;color:var(--ink)}.note{font-size:12px;color:var(--muted);border-left:3px solid var(--accent);padding-left:16px;margin-top:24px}footer{font-size:12px;color:var(--muted);padding-top:26px;padding-bottom:36px;border-top:1px solid var(--line)}footer p{margin:0 0 5px}.noscript{padding:15px;background:var(--panel)}
+@media(max-width:800px){.architecture{grid-template-columns:1fr}.steps{grid-template-columns:repeat(3,minmax(0,1fr))}.hero{padding-top:45px}.reading{grid-template-columns:1fr;gap:18px}.module-detail{min-height:310px}}
+@media(max-width:480px){header,main,footer{padding-left:20px;padding-right:20px}header{gap:12px}.brand{font-size:18px}.brand span{width:33px;height:33px;margin-right:7px}.header-link{font-size:11px}.hero{padding-top:38px}h1{letter-spacing:-2px}.hero p{font-size:17px}.stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-bottom:40px}.module{padding:17px 14px}.module[aria-pressed="true"]{padding:16px 13px}.module strong{font-size:19px}.module-detail,.flow-detail{padding:23px}.states{grid-template-columns:1fr}.command{padding:16px}.command code{font-size:13px}.reading{padding:23px}h2{font-size:29px}.controls button{padding:10px 13px}.step{padding:12px 10px}}
+</style>
+</head>
+<body>
+<header><a class="brand" href="../README.md"><span>lk</span>LinkKeeper</a><a class="header-link" href="GUIA-DO-PROJETO.md">Abrir guia completo ↗</a></header>
+<main>
+<div class="hero"><div class="eyebrow">Documentação · explore o projeto</div><h1>Um link.<br>Um caminho claro.</h1><p>Do texto que você digita até o registro no SQLite: entenda quem recebe, quem decide e quem guarda cada referência.</p><div class="snapshot">Edição 25/10/2026 · base funcional af8e761 · C#/.NET 10</div></div>
+<div class="stats" aria-label="Visão geral"><div class="stat"><strong>4</strong><span>projetos de produção C#</span></div><div class="stat"><strong>3</strong><span>estados de um link</span></div><div class="stat"><strong>57</strong><span>casos xUnit aprovados na execução registrada</span></div><div class="stat"><strong>1</strong><span>processo da Web com API e worker</span></div></div>
+<noscript><p class="noscript">Para explorar os componentes, habilite JavaScript ou abra o guia completo em Markdown. Os links e o resumo de estados abaixo continuam disponíveis.</p></noscript>
+<section aria-labelledby="components-heading">
+<div class="section-heading"><span class="section-number">01 / Responsabilidades</span><h2 id="components-heading">Cada parte tem um trabalho.</h2><p>Selecione um componente para ver sua função, seu arquivo de entrada e o que ele conhece.</p></div>
+<div class="architecture">
+<div class="modules" aria-label="Componentes do projeto">
+<button class="module" data-module="frontend" aria-pressed="false"><small>No navegador</small><strong>Interface</strong><span>Texto, filtros e cartões</span></button>
+<button class="module" data-module="web" aria-pressed="true"><small>Entrada HTTP</small><strong>Web / API</strong><span>Sessão e coordenação</span></button>
+<button class="module" data-module="core" aria-pressed="false"><small>Regras compartilhadas</small><strong>Core</strong><span>Parser, categorias e validação</span></button>
+<button class="module" data-module="storage" aria-pressed="false"><small>Dados persistentes</small><strong>Storage</strong><span>SQL e ciclo de vida</span></button>
+<button class="module" data-module="worker" aria-pressed="false"><small>Dentro da Web</small><strong>Worker</strong><span>Expiração periódica</span></button>
+<button class="module" data-module="cli" aria-pressed="false"><small>No terminal</small><strong>CLI</strong><span>Validação sem gravação</span></button>
+</div>
+<div class="module-detail" role="region" aria-live="polite" aria-labelledby="module-title"><div class="eyebrow" id="module-kind">Entrada e composição</div><h3 id="module-title">Web / API</h3><p id="module-description">Recebe as requisições, verifica a sessão e o CSRF, interpreta comandos com o Core e pede ao Storage para operar o banco. Também serve os arquivos da interface.</p><dl><dt>Comece neste arquivo</dt><dd><a id="module-file" href="../src/LinkKeeper.Web/Program.cs">src/LinkKeeper.Web/Program.cs</a></dd><dt>Dependências / comunicação</dt><dd id="module-dependencies">Storage e Core via referência transitiva; navegador por HTTP.</dd><dt>Uma distinção importante</dt><dd id="module-caveat">Todos os logins válidos entram na mesma conta personal. Não há contas separadas nesta versão.</dd></dl></div>
+</div>
+<p class="dependency-note">Referências de projetos: Web → Storage → Core; CLI → Core. A interface conversa com a Web por HTTP. O worker usa Storage dentro do processo Web.</p>
+</section>
+<section aria-labelledby="flow-heading">
+<div class="section-heading"><span class="section-number">02 / Uma requisição por dentro</span><h2 id="flow-heading">Acompanhe o botão Guardar.</h2><p>Avance pelas etapas ou escolha uma delas. O exemplo é fixo e mostra o caminho implementado.</p></div>
+<div class="command"><span>Comando do exemplo</span><code>https://empresa.example/vaga --vaga-emprego /7dias</code></div>
+<ol class="steps" aria-label="Etapas do cadastro">
+<li><button class="step" data-step="0" aria-current="step"><b>01</b>Texto</button></li>
+<li><button class="step" data-step="1"><b>02</b>Acesso</button></li>
+<li><button class="step" data-step="2"><b>03</b>Regras</button></li>
+<li><button class="step" data-step="3"><b>04</b>Persistência</button></li>
+<li><button class="step" data-step="4"><b>05</b>SQLite</button></li>
+<li><button class="step" data-step="5"><b>06</b>Retorno</button></li>
+</ol>
+<div class="flow-detail" role="region" aria-live="polite" aria-labelledby="flow-title"><div class="file-label" id="flow-file">src/LinkKeeper.Web/wwwroot/app.js</div><h3 id="flow-title">O texto vira uma requisição.</h3><p id="flow-description">O formulário envia command e description como JSON para POST /api/links/. O cookie de sessão e o token CSRF acompanham a requisição. O botão fica desabilitado enquanto a operação está em andamento.</p><pre><code id="flow-code">request("/api/links/", "POST", { command, description })</code></pre></div>
+<div class="controls"><button id="previous" disabled>← Anterior</button><output id="step-counter" aria-live="polite">01 / 06</output><button id="next">Próxima →</button></div>
+<p class="note">Este mapa é documentação com dados sintéticos. Não executa o parser, não chama a API e não altera a sua coleção.</p>
+</section>
+<section aria-labelledby="states-heading">
+<div class="section-heading"><span class="section-number">03 / Ciclo de vida</span><h2 id="states-heading">O prazo termina. O histórico fica.</h2><p>Expirar e arquivar preservam o registro. A coleção padrão mostra os ativos.</p></div>
+<div class="states"><article class="state"><h3><span class="dot" aria-hidden="true"></span>Active</h3><p>Referência da coleção ativa. Pode ter prazo ou ser permanente. A ação de arquivar está disponível.</p></article><article class="state expired"><h3><span class="dot" aria-hidden="true"></span>Expired</h3><p>O prazo terminou e o estado foi reconciliado. Pode renovar por sete dias na tela ou arquivar.</p></article><article class="state archived"><h3><span class="dot" aria-hidden="true"></span>Archived</h3><p>Arquivamento explícito. O registro continua consultável; desarquivamento ainda não existe.</p></article></div>
+<p class="state-route">Active → Expired → Active por renovação · Active ou Expired → Archived por arquivamento.</p>
+</section>
+<section aria-labelledby="reading-heading">
+<div class="section-heading"><span class="section-number">04 / Acompanhe no código</span><h2 id="reading-heading">Leia na ordem da informação.</h2></div>
+<div class="reading"><div><h3>Uma trilha de leitura</h3><ol><li>LinkItem: os dados e estados.</li><li>CategoryCatalog e CommandParser: as decisões.</li><li>LinkValidation e LinkStore: o que pode ser gravado.</li><li>001-links.sql: as garantias do banco.</li><li>Web/Program.cs e app.js: conectando tudo.</li><li>Testes e smoke HTTP: a evidência do comportamento.</li></ol><a href="GUIA-DO-PROJETO.md#leitura">Ver o roteiro com links para os arquivos ↗</a></div><div><h3>Estado desta edição</h3><p>Cadastro persistente, autenticação pessoal, consultas, arquivo, renovação e expiração implementados. Builds, 57 casos xUnit e smoke HTTP passaram localmente.</p><p>Continuam pendentes: deploy HTTPS, WhatsApp, contas distintas, QA visual mobile, validação operacional do container e backup. A consulta de Actions desta edição não listou execuções remotas.</p><a href="RESUMPTION.md">Consultar verificações e PRs em rascunho ↗</a></div></div>
+</section>
+</main>
+<footer><p>LinkKeeper · documentação do projeto · exemplo fixo, sem dependências externas.</p><p>Para ler o Markdown formatado, abra GUIA-DO-PROJETO.md no VS Code e use Ctrl+Shift+V.</p></footer>
+<script>
+"use strict";
+const modules = {
+  frontend: {
+    kind: "Interface no navegador", title: "Interface",
+    description: "HTML organiza os formulários, CSS define a apresentação e JavaScript chama a API e monta os cartões. A lista exibida vem do servidor; a coleção não é persistida no navegador.",
+    file: "src/LinkKeeper.Web/wwwroot/app.js",
+    dependencies: "Endpoints HTTP da Web; arquivos index.html e style.css na mesma pasta.",
+    caveat: "O filtro de categorias ainda é fixo em jobs, fun e art. As demais aparecem em Todas."
+  },
+  web: {
+    kind: "Entrada e composição", title: "Web / API",
+    description: "Recebe as requisições, verifica a sessão e o CSRF, interpreta comandos com o Core e pede ao Storage para operar o banco. Também serve os arquivos da interface.",
+    file: "src/LinkKeeper.Web/Program.cs",
+    dependencies: "Storage e Core via referência transitiva; navegador por HTTP.",
+    caveat: "Todos os logins válidos entram na mesma conta personal. Não há contas separadas nesta versão."
+  },
+  core: {
+    kind: "Regras compartilhadas", title: "Core",
+    description: "Transforma o comando em ParsedLink, resolve nomes e aliases, define prazos e valida URLs e dados. LinkItem descreve os campos persistidos. O Core não importa ASP.NET nem SQLite.",
+    file: "src/LinkKeeper.Core/CommandParser.cs",
+    dependencies: "Biblioteca padrão do .NET, CategoryCatalog, LinkValidation e TimeProvider.",
+    caveat: "ParsedLink e LinkItem são records construíveis. A validação também acontece antes de gravar, para proteger chamadas que contornam o parser."
+  },
+  storage: {
+    kind: "Persistência e transições", title: "Storage",
+    description: "Usa SQL parametrizado para criar, consultar, arquivar, renovar e expirar referências no SQLite. A chave única combina proprietário, URL normalizada e categoria; duplicatas mantêm os dados existentes.",
+    file: "src/LinkKeeper.Storage/LinkStore.cs",
+    dependencies: "Core, Microsoft.Data.Sqlite e o script Migrations/001-links.sql.",
+    caveat: "List e Get também reconciliam a expiração globalmente. A lista retorna até 200 registros e ainda não tem paginação."
+  },
+  worker: {
+    kind: "Serviço hospedado junto da Web", title: "ExpirationWorker",
+    description: "Chama LinkStore.Expire no início e periodicamente. O intervalo padrão é 60 segundos. Atualiza apenas links Active com vencimento menor ou igual ao horário atual, preservando o histórico.",
+    file: "src/LinkKeeper.Web/Program.cs",
+    dependencies: "LinkStore, configuração, logger e PeriodicTimer. A classe fica no final do Program.cs.",
+    caveat: "O processo precisa continuar ativo. Concorrência de Expire foi testada; o loop hospedado e a recuperação de falhas ainda precisam de cobertura própria."
+  },
+  cli: {
+    kind: "Executável de terminal", title: "CLI",
+    description: "Junta os argumentos, passa o comando para o mesmo parser do Core e apresenta JSON com mode validation-only. Pode mostrar regras e erros sem abrir a interface web.",
+    file: "src/LinkKeeper.Cli/Program.cs",
+    dependencies: "Core e o catálogo padrão. Não referencia Storage.",
+    caveat: "Hoje ela só valida: executar um comando na CLI não adiciona uma referência à coleção web."
+  }
+};
+const flow = [
+  { file: "src/LinkKeeper.Web/wwwroot/app.js", title: "O texto vira uma requisição.",
+    description: "O formulário envia command e description como JSON para POST /api/links/. O cookie de sessão e o token CSRF acompanham a requisição. O botão fica desabilitado enquanto a operação está em andamento.",
+    code: 'request("/api/links/", "POST", { command, description })', module: "frontend" },
+  { file: "src/LinkKeeper.Web/Program.cs", title: "A API verifica quem pode escrever.",
+    description: "O grupo de links exige autenticação, aplica o limite de requisições e verifica CSRF nas escritas. A identidade da sessão define OwnerId como personal; o cliente não escolhe livremente outro proprietário.",
+    code: 'RequireAuthorization()\nRequireRateLimiting("api")\nOwner(context) // claim da identidade autenticada', module: "web" },
+  { file: "src/LinkKeeper.Core/CommandParser.cs", title: "O comando ganha estrutura.",
+    description: "O parser valida a URL, resolve vaga-emprego como jobs e aplica o prazo explícito de sete dias. O resultado é ParsedLink com a URL original, a categoria canônica, criação em UTC e vencimento 168 horas depois.",
+    code: 'new CommandParser(clock, categories).Parse(input.Command)\n// resultado: categoria jobs; ExpiresAt = CreatedAt + 7 dias', module: "core" },
+  { file: "src/LinkKeeper.Storage/LinkStore.cs", title: "A persistência confere as invariantes.",
+    description: "A API recebe ParsedLink e chama Add. O Storage valida novamente URL, categoria e datas, limita a descrição, gera a URL normalizada e abre uma transação. Assim, chamadas diretas também passam pelas regras necessárias.",
+    code: 'store.Add(Owner(context), parsed, input.Description ?? "")\n// internamente: LinkValidation.Canonicalize(parsed, categories)', module: "storage" },
+  { file: "src/LinkKeeper.Storage/Migrations/001-links.sql", title: "O banco preserva a unicidade.",
+    description: "A combinação de proprietário, URL normalizada e categoria é única. Add tenta inserir sem sobrescrever um duplicado, lê a linha correspondente e confirma a transação. Reenviar o link não estende a validade nem desarquiva um registro.",
+    code: 'UNIQUE(owner, normalized_url, category)\nON CONFLICT(owner, normalized_url, category) DO NOTHING', module: "storage" },
+  { file: "src/LinkKeeper.Web/Program.cs → wwwroot/app.js", title: "A coleção reflete o resultado do servidor.",
+    description: "A API devolve item e created: 201 para novo cadastro, 200 para duplicado. O JavaScript consulta a lista novamente, monta os cartões e mostra a mensagem correspondente. A URL guardada não é baixada para produzir uma prévia.",
+    code: 'statusCode: result.Created ? 201 : 200\n// a interface chama load() e mostra a coleção atualizada', module: "frontend" }
+];
+const byId = id => document.getElementById(id);
+function selectModule(key) {
+  const selected = modules[key];
+  if (!selected) return;
+  document.querySelectorAll("[data-module]").forEach(button => button.setAttribute("aria-pressed", String(button.dataset.module === key)));
+  byId("module-kind").textContent = selected.kind;
+  byId("module-title").textContent = selected.title;
+  byId("module-description").textContent = selected.description;
+  byId("module-file").textContent = selected.file;
+  byId("module-file").href = "../" + selected.file;
+  byId("module-dependencies").textContent = selected.dependencies;
+  byId("module-caveat").textContent = selected.caveat;
+}
+let currentStep = 0;
+function selectStep(index) {
+  if (index < 0 || index >= flow.length) return;
+  currentStep = index;
+  const selected = flow[index];
+  document.querySelectorAll("[data-step]").forEach(button => {
+    if (Number(button.dataset.step) === index) button.setAttribute("aria-current", "step");
+    else button.removeAttribute("aria-current");
+  });
+  byId("flow-file").textContent = selected.file;
+  byId("flow-title").textContent = selected.title;
+  byId("flow-description").textContent = selected.description;
+  byId("flow-code").textContent = selected.code;
+  byId("step-counter").textContent = String(index + 1).padStart(2, "0") + " / 06";
+  byId("previous").disabled = index === 0;
+  byId("next").disabled = index === flow.length - 1;
+  selectModule(selected.module);
+}
+document.querySelectorAll("[data-module]").forEach(button => button.addEventListener("click", () => selectModule(button.dataset.module)));
+document.querySelectorAll("[data-step]").forEach(button => {
+  button.addEventListener("click", () => selectStep(Number(button.dataset.step)));
+  button.addEventListener("keydown", event => {
+    let index = Number(button.dataset.step);
+    if (event.key === "ArrowRight") index = Math.min(index + 1, flow.length - 1);
+    else if (event.key === "ArrowLeft") index = Math.max(index - 1, 0);
+    else if (event.key === "Home") index = 0;
+    else if (event.key === "End") index = flow.length - 1;
+    else return;
+    event.preventDefault(); selectStep(index);
+    document.querySelector('[data-step="' + index + '"]').focus();
+  });
+});
+byId("previous").addEventListener("click", () => selectStep(currentStep - 1));
+byId("next").addEventListener("click", () => selectStep(currentStep + 1));
+</script>
+</body>
+</html>
