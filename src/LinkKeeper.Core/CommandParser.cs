@@ -3,10 +3,10 @@ using System.Text.RegularExpressions;
 
 namespace LinkKeeper.Core;
 
-public sealed record ParsedLink(string OriginalUrl, string Category, DateTimeOffset? ExpiresAt);
+public sealed record ParsedLink(string OriginalUrl, string Category, DateTimeOffset? ExpiresAt, DateTimeOffset CreatedAt);
 
 // This increment validates a command only. It never stores or fetches the URL.
-public sealed partial class CommandParser(TimeProvider clock)
+public sealed partial class CommandParser(TimeProvider clock, CategoryCatalog? categories = null)
 {
     public ParsedLink Parse(string command)
     {
@@ -23,11 +23,11 @@ public sealed partial class CommandParser(TimeProvider clock)
             throw new ArgumentException("URL HTTP/HTTPS inválida; credenciais na URL não são aceitas.");
         if (!parts[1].StartsWith("--", StringComparison.Ordinal))
             throw new ArgumentException("Informe uma categoria usando --categoria.");
-        var category = parts[1][2..].ToLowerInvariant();
-        category = category == "vaga-emprego" ? "jobs" : category;
-        if (category is not ("jobs" or "fun" or "art"))
-            throw new ArgumentException("Categoria não configurada. Disponíveis: jobs, fun, art.");
-        int? days = category == "jobs" ? 30 : null;
+        var policy = (categories ?? new CategoryCatalog()).Resolve(parts[1][2..]);
+        var category = policy.Name;
+        int? days = policy.Permanent ? null : policy.DefaultDays;
+        if (parts.Length == 2 && !policy.Permanent && policy.DefaultDays is null)
+            throw new ArgumentException("Esta categoria exige validade explícita.");
         if (parts.Length == 3)
         {
             if (parts[2].Equals("/permanente", StringComparison.OrdinalIgnoreCase)) days = null;
@@ -41,7 +41,7 @@ public sealed partial class CommandParser(TimeProvider clock)
             }
         }
         var now = clock.GetUtcNow();
-        try { return new(original, category, days is null ? null : now.AddDays(days.Value)); }
+        try { return new(original, category, days is null ? null : now.AddDays(days.Value), now); }
         catch (ArgumentOutOfRangeException) { throw new ArgumentException("Validade excede o intervalo suportado."); }
     }
 
