@@ -16,11 +16,7 @@ public sealed partial class CommandParser(TimeProvider clock, CategoryCatalog? c
         if (parts.Length is < 2 or > 3)
             throw new ArgumentException("Use exatamente uma URL, --categoria e /validade opcional.");
         var original = parts[0];
-        if (!Uri.TryCreate(original, UriKind.Absolute, out var url) ||
-            (url.Scheme != Uri.UriSchemeHttp && url.Scheme != Uri.UriSchemeHttps) ||
-            string.IsNullOrEmpty(url.Host) || !string.IsNullOrEmpty(url.UserInfo) ||
-            original.Any(char.IsControl))
-            throw new ArgumentException("URL HTTP/HTTPS inválida; credenciais na URL não são aceitas.");
+        LinkValidation.RequireHttpUrl(original);
         if (!parts[1].StartsWith("--", StringComparison.Ordinal))
             throw new ArgumentException("Informe uma categoria usando --categoria.");
         var policy = (categories ?? new CategoryCatalog()).Resolve(parts[1][2..]);
