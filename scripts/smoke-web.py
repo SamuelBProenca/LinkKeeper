@@ -16,7 +16,9 @@ password = secrets.token_urlsafe(32)
 with tempfile.TemporaryDirectory(prefix='linkkeeper-http-') as temp:
     env = dict(os.environ, LINKKEEPER_PASSWORD=password, LINKKEEPER_DB=temp+'/links.db',
                ASPNETCORE_ENVIRONMENT='Development', ASPNETCORE_URLS='http://127.0.0.1:5017',
-               Logging__LogLevel__Default='Warning')
+               Logging__LogLevel__Default='Warning',
+               Categories__0__Name='pesquisa', Categories__0__DefaultDays='14',
+               Categories__0__Aliases__0='research')
     process = subprocess.Popen([dotnet, str(root/'src/LinkKeeper.Web/bin/Release/net10.0/LinkKeeper.Web.dll')],
         cwd=root/'src/LinkKeeper.Web', env=env, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     client = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(http.cookiejar.CookieJar()))
@@ -50,15 +52,18 @@ with tempfile.TemporaryDirectory(prefix='linkkeeper-http-') as temp:
         code, duplicate=call('/api/links/','POST',{'command':'https://example.com --jobs /1d'},token)
         assert code==200 and not duplicate['created'] and duplicate['item']['expiresAt']==created['item']['expiresAt']
         assert len(call('/api/links/?q=Smoke')[1])==1
+        assert call('/api/links/?status=0')[0]==400
         assert call('/api/links/','POST',{'command':'javascript:alert(1) --fun'},token)[0]==400
         item_id=created['item']['id']
         assert call('/api/links/'+item_id+'/archive','POST',{},token)[0]==204
         assert call('/api/links/')[1]==[]
         assert len(call('/api/links/?status=Archived')[1])==1
         assert call('/api/links/'+item_id+'/renew','POST',{'days':7},token)[0]==409
+        code, custom=call('/api/links/','POST',{'command':'https://example.org --research'},token)
+        assert code==201 and custom['item']['category']=='pesquisa'
         assert call('/api/logout','POST',{},token)[0]==204
         assert call('/api/links/')[0]==401
-        print('HTTP smoke passed: login, CSRF, create, duplicate, search, invalid URL, archive, renewal conflict, logout.')
+        print('HTTP smoke passed: login, CSRF, create, duplicate, search, invalid URL/status, archive, renewal conflict, custom category, logout.')
     finally:
         process.terminate()
         process.wait(timeout=10)

@@ -7,3 +7,6 @@
 *.db-shm
 *.db-wal
 TestResults/
+
+# SDK e checkpoints locais; nunca versionar o conteúdo desta pasta.
+/.tools/

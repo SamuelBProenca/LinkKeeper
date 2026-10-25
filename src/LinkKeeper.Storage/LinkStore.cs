@@ -7,9 +7,11 @@ public sealed class LinkStore
 {
     private readonly string connectionString;
     private readonly TimeProvider clock;
-    public LinkStore(string path, TimeProvider clock)
+    private readonly CategoryCatalog categories;
+    public LinkStore(string path, TimeProvider clock, CategoryCatalog? categories = null)
     {
         this.clock = clock;
+        this.categories = categories ?? new CategoryCatalog();
         connectionString = new SqliteConnectionStringBuilder { DataSource = path, DefaultTimeout = 5 }.ToString();
         using var db = Open();
         using var command = db.CreateCommand();
@@ -36,14 +38,15 @@ public sealed class LinkStore
     }
     public static string Normalize(string original)
     {
-        var uri = new UriBuilder(original);
         // Preserve path, query, fragment and original URL; only canonicalize URI authority.
-        return uri.Uri.AbsoluteUri;
+        return LinkValidation.RequireHttpUrl(original).AbsoluteUri;
     }
     public (LinkItem Item, bool Created) Add(string owner, ParsedLink parsed, string description = "")
     {
         Owner(owner);
-        if (description.Length > 1000) throw new ArgumentException("Descrição: máximo de 1000 caracteres.");
+        parsed = LinkValidation.Canonicalize(parsed, categories);
+        if (description is null || description.Length > 1000)
+            throw new ArgumentException("Descrição: informe até 1000 caracteres.");
         var normalized = Normalize(parsed.OriginalUrl);
         using var db = Open();
         using var transaction = db.BeginTransaction();
@@ -76,7 +79,8 @@ public sealed class LinkStore
     public IReadOnlyList<LinkItem> List(string owner, string status = "Active", string? category = null, string? search = null)
     {
         Owner(owner);
-        if (!Enum.TryParse<LinkStatus>(status, out var state) || !Enum.IsDefined(state))
+        if (!Enum.TryParse<LinkStatus>(status, out var state) || !Enum.IsDefined(state) ||
+            !string.Equals(status, state.ToString(), StringComparison.Ordinal))
             throw new ArgumentException("Estado inválido.");
         Expire();
         using var db = Open();

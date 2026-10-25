@@ -2,6 +2,16 @@
 
 Organizador pessoal de links em C#/.NET 10, em desenvolvimento.
 
+## Entender o projeto
+
+- [Guia completo em português](docs/GUIA-DO-PROJETO.md): produto, arquitetura,
+  fluxo de cadastro, arquivos, banco, API, segurança, testes e roteiro de leitura.
+- [Mapa visual interativo](docs/mapa-do-projeto.html): abra no navegador e explore
+  os componentes e as etapas de um cadastro. Funciona como arquivo local.
+- [Índice da documentação](docs/README.md): encontre os guias e os registros de cada etapa.
+
+No VS Code, abra o guia e use **Ctrl+Shift+V** para ler a prévia formatada.
+
 ## Estado atual
 
 CLI para validar comandos; versão web local com login, cadastro persistente SQLite,
@@ -32,3 +42,27 @@ são configuráveis no servidor. Comandos aceitam /7d, /7dias, /30d e /permanent
 Uma URL duplicada na mesma categoria retorna o registro existente sem estender prazo.
 
 Veja docs/WEB-STATUS.md para validação executada, limitações e hospedagem.
+
+## Acompanhar no VS Code
+
+Abra esta pasta e use **Terminal → Executar Tarefa**:
+
+- `LinkKeeper: compilar web` (também Ctrl+Shift+B).
+- `LinkKeeper: testar` para testes unitários e de integração SQLite.
+- `LinkKeeper: smoke HTTP` para um servidor temporário com dados sintéticos.
+- `LinkKeeper: iniciar web` para abrir o servidor em http://127.0.0.1:5017.
+
+A tarefa de início solicita uma senha de pelo menos 16 caracteres, usada somente
+no ambiente do processo. Entre no navegador com a mesma senha. O banco local
+`linkkeeper.db` fica na raiz, fora do Git, e continua existindo após encerrar o servidor.
+Interrompa a tarefa antes de executar o smoke, pois ambos usam a porta 5017.
+Esse endereço local atende ao desenvolvimento no computador; o deploy HTTPS
+para uso pelo celular continua pendente.
+
+Neste checkout Windows, o SDK 10.0.402 foi instalado isoladamente em `.tools/dotnet`.
+As tarefas e novos terminais do VS Code usam esse SDK. A instalação global permanece
+separada. Em outro computador Windows, prepare o mesmo SDK nesse diretório ou ajuste
+`windows.command` das tarefas e `terminal.integrated.env.windows` para a instalação local.
+No Linux/macOS as tarefas usam `dotnet` do PATH e exigem um SDK compatível com `global.json`.
+
+Veja `docs/RESUMPTION.md` para o registro da revisão e as pendências.

@@ -17,7 +17,7 @@ var database = builder.Configuration["LINKKEEPER_DB"] ?? "linkkeeper.db";
 builder.WebHost.ConfigureKestrel(options => options.Limits.MaxRequestBodySize = 16384);
 builder.Services.AddSingleton<TimeProvider>(TimeProvider.System);
 builder.Services.AddSingleton(new CategoryCatalog(builder.Configuration.GetSection("Categories").Get<CategoryRule[]>()));
-builder.Services.AddSingleton(service => new LinkStore(database, service.GetRequiredService<TimeProvider>()));
+builder.Services.AddSingleton(service => new LinkStore(database, service.GetRequiredService<TimeProvider>(), service.GetRequiredService<CategoryCatalog>()));
 builder.Services.AddHostedService<ExpirationWorker>();
 builder.Services.ConfigureHttpJsonOptions(options => options.SerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
