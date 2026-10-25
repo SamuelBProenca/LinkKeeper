@@ -32,3 +32,27 @@ são configuráveis no servidor. Comandos aceitam /7d, /7dias, /30d e /permanent
 Uma URL duplicada na mesma categoria retorna o registro existente sem estender prazo.
 
 Veja docs/WEB-STATUS.md para validação executada, limitações e hospedagem.
+
+## Acompanhar no VS Code
+
+Abra esta pasta e use **Terminal → Executar Tarefa**:
+
+- `LinkKeeper: compilar web` (também Ctrl+Shift+B).
+- `LinkKeeper: testar` para testes unitários e de integração SQLite.
+- `LinkKeeper: smoke HTTP` para um servidor temporário com dados sintéticos.
+- `LinkKeeper: iniciar web` para abrir o servidor em http://127.0.0.1:5017.
+
+A tarefa de início solicita uma senha de pelo menos 16 caracteres, usada somente
+no ambiente do processo. Entre no navegador com a mesma senha. O banco local
+`linkkeeper.db` fica na raiz, fora do Git, e continua existindo após encerrar o servidor.
+Interrompa a tarefa antes de executar o smoke, pois ambos usam a porta 5017.
+Esse endereço local atende ao desenvolvimento no computador; o deploy HTTPS
+para uso pelo celular continua pendente.
+
+Neste checkout Windows, o SDK 10.0.402 foi instalado isoladamente em `.tools/dotnet`.
+As tarefas e novos terminais do VS Code usam esse SDK. A instalação global permanece
+separada. Em outro computador Windows, prepare o mesmo SDK nesse diretório ou ajuste
+`windows.command` das tarefas e `terminal.integrated.env.windows` para a instalação local.
+No Linux/macOS as tarefas usam `dotnet` do PATH e exigem um SDK compatível com `global.json`.
+
+Veja `docs/RESUMPTION.md` para o registro da revisão e as pendências.

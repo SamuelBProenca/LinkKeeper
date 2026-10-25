@@ -1,0 +1,12 @@
+{
+  "terminal.integrated.env.windows": {
+    "DOTNET_ROOT": "${workspaceFolder}\\.tools\\dotnet",
+    "PATH": "${workspaceFolder}\\.tools\\dotnet;${env:PATH}"
+  },
+  "files.watcherExclude": {
+    "**/.tools/**": true
+  },
+  "files.exclude": {
+    ".tools": true
+  }
+}

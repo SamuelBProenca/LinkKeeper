@@ -1,0 +1,107 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "LinkKeeper: compilar web",
+      "type": "process",
+      "command": "dotnet",
+      "windows": {
+        "command": "${workspaceFolder}\\.tools\\dotnet\\dotnet.exe"
+      },
+      "args": [
+        "build",
+        "src/LinkKeeper.Web",
+        "-c",
+        "Release",
+        "--disable-build-servers"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": "$msCompile",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "LinkKeeper: testar",
+      "type": "process",
+      "command": "dotnet",
+      "windows": {
+        "command": "${workspaceFolder}\\.tools\\dotnet\\dotnet.exe"
+      },
+      "args": [
+        "test",
+        "tests/LinkKeeper.Tests",
+        "-c",
+        "Release",
+        "--logger",
+        "trx",
+        "--disable-build-servers"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": "$msCompile",
+      "group": "test"
+    },
+    {
+      "label": "LinkKeeper: smoke HTTP",
+      "type": "process",
+      "command": "python3",
+      "windows": {
+        "command": "python",
+        "options": {
+          "env": {
+            "DOTNET_EXE": "${workspaceFolder}\\.tools\\dotnet\\dotnet.exe"
+          }
+        }
+      },
+      "args": [
+        "scripts/smoke-web.py"
+      ],
+      "dependsOn": "LinkKeeper: compilar web",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "LinkKeeper: iniciar web",
+      "type": "process",
+      "command": "dotnet",
+      "windows": {
+        "command": "${workspaceFolder}\\.tools\\dotnet\\dotnet.exe"
+      },
+      "args": [
+        "run",
+        "--project",
+        "src/LinkKeeper.Web",
+        "-c",
+        "Release",
+        "--no-build",
+        "--no-launch-profile"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "ASPNETCORE_ENVIRONMENT": "Development",
+          "ASPNETCORE_URLS": "http://127.0.0.1:5017",
+          "LINKKEEPER_DB": "${workspaceFolder}/linkkeeper.db",
+          "LINKKEEPER_PASSWORD": "${input:linkkeeperPassword}"
+        }
+      },
+      "dependsOn": "LinkKeeper: compilar web",
+      "problemMatcher": []
+    }
+  ],
+  "inputs": [
+    {
+      "id": "linkkeeperPassword",
+      "type": "promptString",
+      "description": "Senha local do LinkKeeper (mínimo de 16 caracteres). Não será salva no projeto.",
+      "password": true
+    }
+  ]
+}
